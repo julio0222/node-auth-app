@@ -1,0 +1,9 @@
+<% title = "Perfil" %>
+
+<div class="card">
+  <div class="card-body">
+    <h4>Perfil de <%= user.fullname %></h4>
+    <p><strong>Email:</strong> <%= user.email %></p>
+    <p><strong>Registrado:</strong> <%= new Date(user.createdAt).toLocaleString() %></p>
+  </div>
+</div>

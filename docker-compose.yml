@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    environment:
+      - PORT=3000
+      - SESSION_SECRET=tu_secreto_super_secreto
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - ./database.sqlite:/app/database.sqlite
+    restart: unless-stopped

@@ -1,0 +1,23 @@
+<% title = "Dashboard" %>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Bienvenido, <%= user.fullname %>!</h4>
+    <p>Tu email: <strong><%= user.email %></strong></p>
+    <p>Último inicio de sesión: <%= user.lastLogin ? new Date(user.lastLogin).toLocaleString() : '—' %></p>
+
+    <hr>
+    <h5>Atajos</h5>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h6>Perfil</h6>
+            <p>Ver o editar tu perfil.</p>
+            <a href="/profile" class="btn btn-sm btn-outline-primary">Ir a Perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

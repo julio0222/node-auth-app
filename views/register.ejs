@@ -1,0 +1,19 @@
+<% title = "Registro" %>
+
+<form action="/register" method="post" class="mx-auto" style="max-width:480px;">
+  <h2 class="mb-3">Registro</h2>
+  <div class="mb-3">
+    <label class="form-label">Nombre completo</label>
+    <input name="fullname" id="fullname" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input name="email" id="email" type="email" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Contraseña</label>
+    <input name="password" id="password" type="password" class="form-control" minlength="6" required>
+  </div>
+  <button class="btn btn-primary">Registrar</button>
+  <a href="/login" class="btn btn-link">Tengo cuenta</a>
+</form>
