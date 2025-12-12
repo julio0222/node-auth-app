@@ -1,15 +1,41 @@
-<% title = "Login" %>
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="card-title-main mb-1">Iniciar sesión</h1>
+    <p class="auth-subtitle mb-4">
+      Entra con tu cuenta para jugar <strong>PollitoBird</strong> y ver tu panel.
+    </p>
 
-<form action="/login" method="post" class="mx-auto" style="max-width:420px;">
-  <h2 class="mb-3">Iniciar sesión</h2>
-  <div class="mb-3">
-    <label class="form-label">Email</label>
-    <input name="email" type="email" class="form-control" required>
+    <form action="/login" method="POST" novalidate>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control auth-input"
+          id="email"
+          name="email"
+          required
+        >
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          class="form-control auth-input"
+          id="password"
+          name="password"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn btn-auth-primary w-100 mb-3">
+        Entrar
+      </button>
+
+      <p class="auth-footer-text">
+        ¿No tienes cuenta?
+        <a href="/register" class="auth-footer-link">Crear cuenta</a>
+      </p>
+    </form>
   </div>
-  <div class="mb-3">
-    <label class="form-label">Contraseña</label>
-    <input name="password" type="password" class="form-control" required>
-  </div>
-  <button class="btn btn-primary">Entrar</button>
-  <a href="/register" class="btn btn-link">Crear cuenta</a>
-</form>
+</div>

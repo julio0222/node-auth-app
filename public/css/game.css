@@ -1,0 +1,9 @@
+body.bg-farm {
+  background: linear-gradient(180deg, #87ceeb 0%, #f5f5f5 60%);
+  min-height: 100vh;
+}
+
+.game-container {
+  max-width: 960px;
+  margin-top: 2rem;
+}

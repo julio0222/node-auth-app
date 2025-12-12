@@ -1,23 +1,30 @@
-<% title = "Dashboard" %>
+<main class="app-content">
+  <div class="dashboard-card">
+    <h1 class="mb-3">Bienvenido, <%= user.fullname ? user.fullname.split(' ')[0] : user.email %> 👋</h1>
 
-<div class="card">
-  <div class="card-body">
-    <h4 class="card-title">Bienvenido, <%= user.fullname %>!</h4>
-    <p>Tu email: <strong><%= user.email %></strong></p>
-    <p>Último inicio de sesión: <%= user.lastLogin ? new Date(user.lastLogin).toLocaleString() : '—' %></p>
+    <p class="mb-2 text-muted">
+      Tu email: <span class="fw-semibold"><%= user.email %></span>
+    </p>
+    <p class="mb-4 text-muted">
+      Último inicio de sesión:
+      <span class="fw-semibold"><%= user.lastLogin ? user.lastLogin.toLocaleString() : '—' %></span>
+    </p>
 
-    <hr>
-    <h5>Atajos</h5>
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="card">
-          <div class="card-body">
-            <h6>Perfil</h6>
-            <p>Ver o editar tu perfil.</p>
-            <a href="/profile" class="btn btn-sm btn-outline-primary">Ir a Perfil</a>
-          </div>
-        </div>
-      </div>
+    <div class="dashboard-links d-flex flex-wrap align-items-center gap-2">
+      <!-- Botón principal: ir al juego -->
+      <a href="/game" class="btn-pill-main">
+        Ir al juego
+      </a>
+
+      <!-- Secundario: perfil -->
+      <a href="/profile" class="btn-pill-secondary">
+        Ver perfil
+      </a>
+
+      <!-- Enlace fantasma: opcional -->
+      <a href="/" class="btn-pill-ghost">
+        Volver al inicio
+      </a>
     </div>
   </div>
-</div>
+</main>

@@ -1,0 +1,291 @@
+<div class="page-wrapper home-wrapper">
+  <section class="home-hero">
+    <div class="home-text">
+      <p class="eyebrow">Juego integrado a la app de autenticación</p>
+      <h1>PollitoBird 🐥</h1>
+      <p class="home-subtitle">
+        Un mini juego estilo flappy donde tu pollito intenta escapar
+        <strong>Y PASAR LA MATERIA</strong>,
+        pero como es un pollito amarillo tiene todas las posibilidades de <strong>PASAR LA MATERIA.</strong>
+      </p>
+
+      <% if (!user) { %>
+        <p class="home-note">
+          Para jugar necesitas iniciar sesión o crear una cuenta.
+        </p>
+        <div class="home-buttons">
+          <a href="/login" class="btn primary">Iniciar sesión</a>
+          <a href="/register" class="btn secondary">Crear cuenta</a>
+        </div>
+      <% } else { %>
+        <p class="home-note">
+          Hola <strong><%= user.fullname || user.email %></strong>, ya puedes entrar al juego.
+        </p>
+        <div class="home-buttons">
+          <a href="/game" class="btn primary">Jugar PollitoBird</a>
+          <a href="/dashboard" class="btn ghost">Ir al panel</a>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="home-illustration">
+      <div class="game-card">
+        <div class="game-sky"></div>
+        <div class="game-ground"></div>
+
+        <div class="game-pipe pipe-top"></div>
+        <div class="game-pipe pipe-bottom"></div>
+
+        <div class="game-chick"></div>
+      </div>
+      <p class="game-caption">
+
+      </p>
+    </div>
+  </section>
+
+  <section class="info-grid">
+    <article class="info-card">
+      <h2>🔐 Autenticación</h2>
+      <p>
+        Login con sesiones, contraseñas cifradas con <code>bcrypt</code> y
+        rutas protegidas para acceder al juego.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <h2>🧪 SAST &amp; DAST</h2>
+      <p>
+        Código analizado con <strong>SonarQube</strong> y pruebas dinámicas con
+        <strong> OWASP ZAP</strong> para revisar vulnerabilidades.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <h2>🐳 Docker &amp; Trivy</h2>
+      <p>
+        La aplicación corre en un contenedor Docker y la imagen fue escaneada
+        con <strong>Trivy</strong> para detectar fallos de seguridad.
+      </p>
+    </article>
+  </section>
+</div>
+
+<style>
+  .home-wrapper {
+    min-height: calc(100vh - 64px);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    color: #e5e7eb;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 900px) {
+    .home-hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .home-buttons {
+      justify-content: center;
+    }
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
+  }
+
+  .home-text h1 {
+    font-size: 2.7rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .home-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #d1d5db;
+    margin-bottom: 1.4rem;
+  }
+
+  .home-note {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 1.2rem;
+  }
+
+  .home-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.16s ease-out;
+  }
+
+  .btn.primary {
+    background: radial-gradient(circle at 30% 0, #fef9c3, #facc15);
+    color: #111827;
+    font-weight: 600;
+    box-shadow: 0 10px 28px rgba(250, 204, 21, 0.45);
+  }
+
+  .btn.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 36px rgba(250, 204, 21, 0.6);
+  }
+
+  .btn.secondary {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.7);
+    color: #e5e7eb;
+  }
+
+  .btn.secondary:hover {
+    background: rgba(15, 23, 42, 1);
+    border-color: #facc15;
+  }
+
+  .btn.ghost {
+    background: transparent;
+    border-color: rgba(148, 163, 184, 0.5);
+    color: #e5e7eb;
+  }
+
+  .btn.ghost:hover {
+    border-color: #facc15;
+    background: rgba(15, 23, 42, 0.7);
+  }
+
+  .home-illustration {
+    text-align: center;
+  }
+
+  .game-card {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 4 / 3;
+    border-radius: 1.4rem;
+    overflow: hidden;
+    background: radial-gradient(circle at top, #1e293b, #020617);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    margin: 0 auto 0.8rem;
+  }
+
+  .game-sky {
+    position: absolute;
+    inset: 0 0 35% 0;
+    background: radial-gradient(circle at 20% 0, #0f172a, #020617);
+  }
+
+  .game-ground {
+    position: absolute;
+    inset: 65% 0 0 0;
+    background: linear-gradient(180deg, #14532d, #052e16);
+  }
+
+  .game-pipe {
+    position: absolute;
+    width: 42px;
+    background: linear-gradient(180deg, #22c55e, #16a34a);
+    border-radius: 0.5rem;
+  }
+
+  .pipe-top {
+    height: 40%;
+    right: 18%;
+    top: 0;
+  }
+
+  .pipe-bottom {
+    height: 35%;
+    right: 18%;
+    bottom: 0;
+  }
+
+  .game-chick {
+    position: absolute;
+    left: 18%;
+    top: 45%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 20%, #fef9c3, #facc15);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.6);
+  }
+
+  .game-chick::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 18px;
+    width: 9px;
+    height: 9px;
+    background: #111827;
+    border-radius: 50%;
+  }
+
+  .game-caption {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    line-height: 1.6;
+  }
+
+  .info-grid {
+    margin-top: 2.8rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.4rem;
+  }
+
+  .info-card {
+    border-radius: 1.1rem;
+    padding: 1.3rem 1.25rem;
+    background: radial-gradient(circle at top left,
+      rgba(250, 204, 21, 0.08),
+      rgba(15, 23, 42, 0.96));
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    backdrop-filter: blur(10px);
+  }
+
+  .info-card h2 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .info-card p {
+    font-size: 0.9rem;
+    color: #d1d5db;
+  }
+
+  .info-card code {
+    font-size: 0.8rem;
+    background: rgba(15, 23, 42, 0.9);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.35rem;
+  }
+</style>
+

@@ -1,42 +1,100 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= typeof title !== 'undefined' ? title : 'App' %></title>
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand" href="/">AuthApp</a>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ms-auto">
-            <% if (user) { %>
-              <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-              <li class="nav-item"><a class="nav-link" href="/profile">Perfil</a></li>
-              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-            <% } else { %>
-              <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-              <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-            <% } %>
-          </ul>
-        </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof title !== 'undefined' ? title : 'PollitoBird App' %></title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link href="/css/app.css" rel="stylesheet">
+</head>
+
+<body class="sidebar-collapsed">  
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-logo">🐤</span>
+        <span class="sidebar-title">PollitoBird App</span>
+        <button class="sidebar-close d-lg-none" id="sidebarClose">&times;</button>
       </div>
-    </nav>
 
-    <div class="container mt-4">
-      <% if (success && success.length) { %>
-        <div class="alert alert-success"><%= success %></div>
-      <% } %>
-      <% if (error && error.length) { %>
-        <div class="alert alert-danger"><%= error %></div>
-      <% } %>
+      <nav class="sidebar-nav">
+        <% if (user) { %>
+          <a href="/dashboard" class="sidebar-link">Dashboard</a>
+          <a href="/game" class="sidebar-link">Juego</a>
+          <a href="/profile" class="sidebar-link">Perfil</a>
+          <a href="/logout" class="sidebar-link sidebar-link-danger">Logout</a>
+        <% } else { %>
+          <a href="/login" class="sidebar-link">Login</a>
+          <a href="/register" class="sidebar-link sidebar-link-primary">Registrar</a>
+        <% } %>
+      </nav>
 
-      <%- body %>
+      <% if (user) { %>
+        <div class="sidebar-footer">
+          Conectado como <strong><%= user.fullname || user.email %></strong>
+        </div>
+      <% } %>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="app-main">
+      <header class="topbar">
+        <button class="sidebar-toggle" id="sidebarToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="topbar-title">PollitoBird App</div>
+
+        <% if (user) { %>
+        <div class="topbar-user">
+          <div class="topbar-avatar">
+            <%= (user.fullname || user.email).charAt(0).toUpperCase() %>
+          </div>
+        </div>
+        <% } %>
+      </header>
+
+      <main class="app-content">
+        <div class="container">
+
+          <% if (success && success.length) { %>
+            <div class="alert alert-modern-success mb-3"><%= success %></div>
+          <% } %>
+
+          <% if (error && error.length) { %>
+            <div class="alert alert-modern-error mb-3"><%= error %></div>
+          <% } %>
+
+          <%- body %>
+
+        </div>
+      </main>
+
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  <!-- Script Sidebar -->
+  <script>
+    const toggleBtn = document.getElementById('sidebarToggle');
+    const closeBtn = document.getElementById('sidebarClose');
+
+    if (toggleBtn) toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('sidebar-collapsed');
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('sidebar-collapsed');
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

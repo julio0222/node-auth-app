@@ -1,19 +1,52 @@
-<% title = "Registro" %>
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="card-title-main mb-1">Crear cuenta</h1>
+    <p class="auth-subtitle mb-4">
+      Regístrate para guardar tu mejor score en <strong>PollitoBird</strong>.
+    </p>
 
-<form action="/register" method="post" class="mx-auto" style="max-width:480px;">
-  <h2 class="mb-3">Registro</h2>
-  <div class="mb-3">
-    <label class="form-label">Nombre completo</label>
-    <input name="fullname" id="fullname" class="form-control" required>
+    <form action="/register" method="POST" novalidate>
+      <div class="mb-3">
+        <label for="fullname" class="form-label">Nombre completo</label>
+        <input
+          type="text"
+          class="form-control auth-input"
+          id="fullname"
+          name="fullname"
+          required
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control auth-input"
+          id="email"
+          name="email"
+          required
+        >
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          class="form-control auth-input"
+          id="password"
+          name="password"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn btn-auth-primary w-100 mb-3">
+        Registrar
+      </button>
+
+      <p class="auth-footer-text">
+        ¿Ya tienes cuenta?
+        <a href="/login" class="auth-footer-link">Iniciar sesión</a>
+      </p>
+    </form>
   </div>
-  <div class="mb-3">
-    <label class="form-label">Email</label>
-    <input name="email" id="email" type="email" class="form-control" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Contraseña</label>
-    <input name="password" id="password" type="password" class="form-control" minlength="6" required>
-  </div>
-  <button class="btn btn-primary">Registrar</button>
-  <a href="/login" class="btn btn-link">Tengo cuenta</a>
-</form>
+</div>

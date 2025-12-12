@@ -6,7 +6,8 @@ const path = require('path');
 const { Sequelize } = require('sequelize');
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
-const expressLayouts = require('express-ejs-layouts'); 
+const expressLayouts = require('express-ejs-layouts');
+const { ensureAuth } = require('./middleware/auth');
 require('dotenv').config();
 
 const app = express();
@@ -48,24 +49,47 @@ const sequelize = new Sequelize({
 });
 app.set('sequelize', sequelize);
 
-// Import models (ensures file exists)
+// Import models (✅ SOLO UNA VEZ)
 const User = require('./models/user')(sequelize);
-
-// Sync DB then start server
-sequelize.sync().then(() => {
-  console.log('DB synced');
-}).catch(err => console.error(err));
 
 // Routes
 app.use('/', authRoutes);
 app.use('/', dashboardRoutes);
 
-// Home redirect
+// Home
 app.get('/', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
-  res.redirect('/login');
+  res.render('index', { user: req.session.user || null });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.get('/game', ensureAuth, (req, res) => {
+  res.render('game', { user: req.session.user || null });
 });
+
+// ✅ Sync DB -> crear admin -> levantar servidor
+sequelize.sync()
+  .then(async () => {
+    console.log('DB synced');
+
+    // 🔐 Crear usuario admin por defecto si no existe
+    const adminEmail = 'admin@example.com';
+
+    const adminExists = await User.findOne({
+      where: { email: adminEmail }
+    });
+
+    if (!adminExists) {
+      await User.create({
+        fullname: 'Administrador',
+        email: adminEmail,
+        password: 'password123', // si tu modelo tiene bcrypt hook, se hashea solo
+      });
+      console.log('✅ Usuario admin creado por defecto');
+    } else {
+      console.log('ℹ️ Usuario admin ya existe');
+    }
+
+    app.listen(port, () => {
+      console.log(`🚀 Server running on http://localhost:${port}`);
+    });
+  })
+  .catch(err => console.error(err));
